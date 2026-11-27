@@ -4,6 +4,11 @@ services:
     build:
       target: development
 
+    # .env is read straight from the mounted project folder in dev.
+    # Injecting it as container env vars would freeze values (e.g. an empty
+    # APP_KEY) at container creation and override later edits to .env.
+    env_file: !reset []
+
     volumes:
       - .:/var/www/html
       - ./storage:/var/www/html/storage
