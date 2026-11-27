@@ -1,0 +1,44 @@
+# Secrets / local env
+.env
+.env.*
+!.env.example
+
+# VCS & editor
+.git
+.gitignore
+.gitattributes
+.idea
+.vscode
+*.swp
+.DS_Store
+
+# Dependencies (installed inside the image)
+node_modules
+vendor
+
+# Runtime storage (shared via volume, never baked in)
+storage/*.key
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+storage/app/public/*
+bootstrap/cache/*.php
+
+# Public artifacts created at runtime / dev
+public/storage
+public/hot
+
+# Tests & tooling
+tests
+phpunit.xml
+.phpunit.result.cache
+.phpunit.cache
+coverage
+npm-debug.log
+yarn-error.log
+
+# Docker files not needed in the build context
+compose*.yaml
+docker-compose*.yml

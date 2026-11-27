@@ -1,0 +1,42 @@
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      target: production
+    container_name: crm_app
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - crm_storage:/var/www/html/storage
+    networks:
+      - crm_network
+      - central_db_network
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    container_name: crm_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    volumes:
+      - crm_storage:/var/www/html/storage:ro
+    networks:
+      - crm_network
+
+networks:
+  crm_network:
+    driver: bridge
+
+  central_db_network:
+    external: true
+    name: central_db_network
+
+volumes:
+  crm_storage:
